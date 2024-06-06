@@ -8,10 +8,14 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
+import { AuthService } from './auth/auth.service';
 
 @Controller() // route /
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get() // route " " /=> api (restfull)
   @Render('home')
@@ -26,6 +30,6 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async handleLogin(@Request() req) {
-    return req.user;
+    return this.authService.login(req.user);
   }
 }
