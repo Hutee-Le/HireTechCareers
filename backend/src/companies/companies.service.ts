@@ -43,7 +43,7 @@ export class CompaniesService {
     return this.companyModel.findOne({ name }).exec();
   }
 
-  async update(
+  async update(id: string, updateCompanyDto: UpdateCompanyDto, user: IUser) {
     id: string,
     updateCompanyDto: UpdateCompanyDto,
     @User() user: IUser,
