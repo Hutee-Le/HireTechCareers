@@ -28,6 +28,12 @@ export class User {
 
   @Prop()
   updateAt: Date;
+
+  @Prop()
+  isDeleted: boolean;
+
+  @Prop()
+  deletedAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
