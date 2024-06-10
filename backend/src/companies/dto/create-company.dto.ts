@@ -1,32 +1,12 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsOptional,
-  IsBoolean,
-  IsMongoId,
-} from 'class-validator';
-import { Types } from 'mongoose';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateCompanyDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Name không được để trống' })
   name: string;
 
-  @IsString()
-  @IsOptional()
-  address?: string;
+  @IsNotEmpty({ message: 'Address không được để trống' })
+  address: string;
 
-  @IsString()
-  @IsOptional()
-  description?: string;
-
-  @IsOptional()
-  createdAt?: Date;
-
-  @IsOptional()
-  updatedAt?: Date;
-
-  @IsBoolean()
-  @IsOptional()
-  isDeleted?: boolean;
+  @IsNotEmpty({ message: 'Description không được để trống' })
+  description: string;
 }
