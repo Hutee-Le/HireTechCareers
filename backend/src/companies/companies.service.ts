@@ -6,6 +6,7 @@ import { Company, CompanyDocument } from './schemas/company.schema';
 import mongoose from 'mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { IUser } from 'src/users/users.interface';
+import { User } from 'src/decorator/customize';
 
 @Injectable()
 export class CompaniesService {
@@ -42,10 +43,20 @@ export class CompaniesService {
     return this.companyModel.findOne({ name }).exec();
   }
 
-  async update(id: string, updateCompanyDto: UpdateCompanyDto) {
+  async update(
+    id: string,
+    updateCompanyDto: UpdateCompanyDto,
+    @User() user: IUser,
+  ) {
     return await this.companyModel.updateOne(
       { _id: id },
-      { ...updateCompanyDto },
+      {
+        ...updateCompanyDto,
+        updatedBy: {
+          _id: user._id,
+          email: user.email,
+        },
+      },
     );
   }
 
